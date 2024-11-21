@@ -62,25 +62,25 @@
           // To GET a single course
 
       app.get('/course', (req, res) => {
-        res.json(course); // Send back the data as JSON
+        res.json(course);
       });
 
-      // CHANGE EVERYTHING FROM "user" TO "course"
+     
 
 // POST: Add a new name
     app.post('/course', (req, res) => {
-    const newUser = { id: data.length + 1, name: 'Kai' }; // Sample user data
-    data.push(newCourse); // Add new user to the array
-    res.json(newCourse); // Respond with the new user data
+    const newUser = { id: data.length + 1, name: 'Kai' }; 
+    data.push(newCourse); 
+    res.json(newCourse);
   });
 
   // PUT: Update a name
     app.put('/course/:id', (req, res) => {
-    const userId = parseInt(req.params.id); // Get ID from URL
+    const userId = parseInt(req.params.id); 
     const user = data.find(u => u.id === userId);
     if (course) {
-      course.name = 'Updated Name'; // Update the name
-      res.json(course); // Respond with updated user data
+      course.name = 'Updated Name'; 
+      res.json(course); 
     } else {
       res.status(404).json({ message: 'User not found' });
     }
@@ -92,7 +92,7 @@ app.delete('/course/:id', (req, res) => {
   const index = data.findIndex(u => u.id === userId);
   if (index !== -1) {
     const deletedCourse = data.splice(index, 1);
-    res.json(deletedCourse); // Respond with deleted user data
+    res.json(deletedCourse);
   } else {
     res.status(404).json({ message: 'User not found' });
   }
