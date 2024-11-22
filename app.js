@@ -35,13 +35,14 @@
       console.log(`Server is running on http://localhost:${PORT}`);
     });
     
-    // To GET a single course
-   /* app.get('/api/course/:id', (req, res) => {
-      res.send ([ '1', '2'])
-
-    }); */
-
-
+   app.get('/', (req, res) => { // Set up a basic route
+      res.send('Happy Happy! Ayy My First Server Yall!');
+    });
+    app.listen(PORT, () => { // Start the server
+      console.log(`Server is running on http://localhost:${PORT}`);
+    });
+    
+   
 
   /* app.get('/api/course/:id', (req, res) => {
       const course = course.find(c => c.id === parseInt(req.params.id));
@@ -49,58 +50,62 @@
     });
         */
 
-
-
-
-
     const course = [
         { id: 1, name: 'Kaliya', language: "Arabic" },
         { id: 2, name: 'DJ', language: "Spanish" },
         { id: 3, name: 'Danielle', language: "Hawaiian" },
         { id: 4, name: 'Vaughn', language: "Spanish" }
       ];
-          // To GET a single course
+          // To GET all courses
 
       app.get('/course', (req, res) => {
-        res.json(course);
+        res.json(course); 
       });
 
-     
-
-// POST: Add a new name
+    // POST: Add a new name
     app.post('/course', (req, res) => {
-    const newUser = { id: data.length + 1, name: 'Kai' }; 
+    const newCourse = { id: data.length + 1, name: 'Kai' }; 
     data.push(newCourse); 
-    res.json(newCourse);
+    res.json(newCourse); 
   });
+
+
+    app.post('/course', (req, res) => {
+    const newCourse = {
+    id: course.length + 1,
+    name: req.body.name,
+    language: req.body.language,
+    };
+      course.push(newCourse);
+      res.status(201).json(newCourse);
+    });
+
 
   // PUT: Update a name
     app.put('/course/:id', (req, res) => {
-    const userId = parseInt(req.params.id); 
-    const user = data.find(u => u.id === userId);
+    const CourseId = parseInt(req.params.id); 
+    const course = course.find(c => c.id === courseId);
+
     if (course) {
-      course.name = 'Updated Name'; 
-      res.json(course); 
+      course.name = 'Updated Name'; // Update the name
+      course.language = req.body.language || course.language;
+      res.json(course);
     } else {
-      res.status(404).json({ message: 'User not found' });
+      res.status(404).json({ message: 'Course not found' });
     }
   });
 
-// DELETE: Delete a name
+// DELETE: Delete a course
 app.delete('/course/:id', (req, res) => {
   const courseId = parseInt(req.params.id);
-  const index = data.findIndex(u => u.id === userId);
+  const index = data.findIndex(c => c.id === courseId);
+
   if (index !== -1) {
     const deletedCourse = data.splice(index, 1);
-    res.json(deletedCourse);
+    res.json(deletedCourse); 
   } else {
-    res.status(404).json({ message: 'User not found' });
+    res.status(404).json({ message: 'Course not found' });
   }
 });
-
-
-
-
-
 
   
